@@ -25,14 +25,14 @@ const ToDoItem = ({task, isDone, deleteTask, changeIsDone}) => {
       {isDone ? (
         <Text
           style={{
-            fontSize: 18,
+            fontSize: 16,
             opacity: 0.1,
             textDecorationLine: 'line-through',
           }}>
           {task}
         </Text>
       ) : (
-        <Text style={{fontSize: 18}}>{task}</Text>
+        <Text style={{fontSize: 16}}>{task}</Text>
       )}
 
       {isDone ? (
