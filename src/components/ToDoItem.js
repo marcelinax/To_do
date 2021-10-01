@@ -7,8 +7,9 @@ import {
   View,
 } from 'react-native';
 import check from '../assets/media/check.png';
+import ToggleIsDoneButtonStyles from '../assets/styles/ToggleIsDoneButton.styles';
 
-const ToDoItem = ({task, isDone, deleteTask}) => {
+const ToDoItem = ({task, isDone, deleteTask, changeIsDone}) => {
   return (
     <View
       style={{
@@ -17,18 +18,42 @@ const ToDoItem = ({task, isDone, deleteTask}) => {
         width: Dimensions.get('window').width - 52,
         elevation: 10,
         margin: 10,
-
+        alignItems: 'center',
         backgroundColor: 'white',
         borderRadius: 20,
       }}>
-      <Text style={{fontSize: 18}}>{task}</Text>
       {isDone ? (
-        <TouchableWithoutFeedback>
-          <Image source={check} />
+        <Text
+          style={{
+            fontSize: 18,
+            opacity: 0.1,
+            textDecorationLine: 'line-through',
+          }}>
+          {task}
+        </Text>
+      ) : (
+        <Text style={{fontSize: 18}}>{task}</Text>
+      )}
+
+      {isDone ? (
+        <TouchableWithoutFeedback onPress={changeIsDone}>
+          <View
+            style={{
+              ...ToggleIsDoneButtonStyles.button,
+              backgroundColor: '#41D0B3',
+              overflow: 'hidden',
+            }}>
+            <Image source={check} />
+          </View>
         </TouchableWithoutFeedback>
       ) : (
-        <TouchableWithoutFeedback onPress={deleteTask}>
-          <Text>A</Text>
+        <TouchableWithoutFeedback onPress={changeIsDone}>
+          <View
+            style={{
+              ...ToggleIsDoneButtonStyles.button,
+              backgroundColor: 'white',
+            }}
+          />
         </TouchableWithoutFeedback>
       )}
     </View>

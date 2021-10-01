@@ -2,21 +2,22 @@ import React from 'react';
 import {ScrollView, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import ToDoItem from './ToDoItem';
-import {deleteToDo} from '../state/toDosSlice';
+import {deleteToDo, toggleIsDone} from '../state/toDosSlice';
 
 const ToDoList = () => {
   const dispatch = useDispatch();
-  const toDos = useSelector(state => state.toDos.toDos);
-  console.log(toDos);
+  const tasks = useSelector(state => state.toDos.toDos);
 
-  const renderToDos = () => {
-    return toDos.length > 0 ? (
-      toDos.map(toDo => (
+  console.log(tasks);
+  const renderTasks = () => {
+    return tasks.length > 0 ? (
+      tasks.map(toDo => (
         <ToDoItem
           task={toDo.task}
           key={toDo.task}
           isDone={toDo.isDone}
           deleteTask={() => dispatch(deleteToDo(toDo.task))}
+          changeIsDone={() => dispatch(toggleIsDone(toDo))}
         />
       ))
     ) : (
@@ -25,8 +26,8 @@ const ToDoList = () => {
   };
 
   return (
-    <View>
-      <ScrollView>{renderToDos()}</ScrollView>
+    <View style={{marginTop: 15}}>
+      <ScrollView>{renderTasks()}</ScrollView>
     </View>
   );
 };

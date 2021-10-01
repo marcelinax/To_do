@@ -35,8 +35,16 @@ const toDosSlice = createSlice({
       state.toDos = [...state.toDos];
       storeToDos(state.toDos);
     },
+    toggleIsDone: (state, action) => {
+      const {task} = action.payload;
+      const toDoIndex = state.toDos.map(toDo => toDo.task).indexOf(task);
+      console.log(toDoIndex);
+      state.toDos[toDoIndex].isDone = !state.toDos[toDoIndex].isDone;
+      state.toDos = [...state.toDos];
+      storeToDos(state.toDos);
+    },
   },
 });
 
-export const {setToDos, addToDo, deleteToDo} = toDosSlice.actions;
+export const {setToDos, addToDo, deleteToDo, toggleIsDone} = toDosSlice.actions;
 export default toDosSlice.reducer;
